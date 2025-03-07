@@ -1,3 +1,5 @@
+import { MatchCard } from "@/components/MatchCard";
+import { MatchType } from "@/components/types";
 import React, { useState } from "react";
 
 export default function Home() {
@@ -56,8 +58,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           region: "na",
-          name,
-          tag,
+          puuid: "9ccb6834-44aa-599f-be27-ba3219ab17b6"
           // queryParams,
         }),
       });
@@ -65,7 +66,8 @@ export default function Home() {
         throw new Error("Failed to fetch matches.");
       }
 
-      setResponse(res);
+      const matches: MatchType[] = await res.json();
+      setResponse(matches);
     } catch (err) {
       setError((err as Error).message);
     }
@@ -95,7 +97,12 @@ export default function Home() {
       {response && (
         <div>
           <h2>Matches Found:</h2>
-          <pre>{JSON.stringify(response, null, 2)}</pre>
+          {response.map((match: MatchType) => (
+            <MatchCard
+              puuids={["9ccb6834-44aa-599f-be27-ba3219ab17b6"]}
+              match={match}
+            />
+          ))}
         </div>
       )}
     </div>

@@ -6,11 +6,11 @@ export default async function handler(
 ) {
   const apiKey = process.env.VAL_API_KEY as string;
 
-  const { region, name, tag } = req.body;
+  const { region, puuid } = req.body;
 
   try {
     const response = await fetch(
-      `https://api.henrikdev.xyz/valorant/v4/matches/${region}/pc/${name}/${tag}?mode=competitive`,
+      `https://api.henrikdev.xyz/valorant/v4/by-puuid/matches/${region}/pc/${puuid}?mode=competitive`,
       {
         method: "GET",
         headers: {
@@ -30,6 +30,6 @@ export default async function handler(
   } catch (error) {
     res
       .status(500)
-      .json({ error: `Failed to find matches for player ${name}#${tag}.` });
+      .json({ error: `Failed to find matches for player...` });
   }
 }
