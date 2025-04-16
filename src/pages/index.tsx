@@ -14,7 +14,7 @@ export default function Home() {
 
     try {
       const queryParams = new URLSearchParams({ name, tag }).toString();
-      const get = await fetch(`/api/getPlayer?${queryParams}`);
+      const get = await fetch(`/api/ext/getPlayer?${queryParams}`);
 
       if (!get.ok) {
         throw new Error("Failed to fetch player data");
@@ -23,7 +23,7 @@ export default function Home() {
       const playerData = await get.json();
       console.log(playerData);
 
-      const add = await fetch("/api/addPlayer", {
+      const add = await fetch("/api/db/addPlayer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function Home() {
       const start = "0";
 
       // const queryParams = new URLSearchParams({ mode, size, start }).toString();
-      const res = await fetch("/api/getMatchesByPlayer", {
+      const res = await fetch("/api/ext/getMatchesByPlayer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

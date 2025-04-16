@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -9,7 +8,7 @@ export default async function handler(
 
   const { name, tag } = req.query;
   if (!name || !tag) {
-    return res.status(400).json({error: "No name or tag"})
+    return res.status(400).json({ error: "No name or tag" })
   }
 
   try {
@@ -18,10 +17,10 @@ export default async function handler(
         method: 'GET',
         headers: {
           'Authorization': apiKey,
-          'Content-Type': 'application/json' 
+          'Content-Type': 'application/json'
         }
       });
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`)
     }
@@ -29,7 +28,7 @@ export default async function handler(
     const jsonData = await response.json()
     const { data } = jsonData
     res.status(200).json(data)
-  } catch(error) {
-    res.status(500).json({error: `Failed to find player ${name}#${tag}.`})
+  } catch (error) {
+    res.status(500).json({ error: `Failed to find player ${name}#${tag}.` })
   }
 }
