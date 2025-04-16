@@ -46,22 +46,14 @@ export default function Home() {
     e.preventDefault();
     try {
       const region = "na";
-      const mode = "competitive";
-      const size = "10";
-      const start = "0";
+      const puuid = "9ccb6834-44aa-599f-be27-ba3219ab17b6";
 
-      // const queryParams = new URLSearchParams({ mode, size, start }).toString();
-      const res = await fetch("/api/ext/getMatchesByPlayer", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          region: "na",
-          puuid: "9ccb6834-44aa-599f-be27-ba3219ab17b6"
-          // queryParams,
-        }),
-      });
+      const queryParams = new URLSearchParams({
+        region,
+        puuid,
+        // mode, size, start
+      }).toString();
+      const res = await fetch(`/api/ext/getMatchesByPlayer?${queryParams}`);
       if (!res.ok) {
         throw new Error("Failed to fetch matches.");
       }
