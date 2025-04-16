@@ -1,16 +1,14 @@
-import { supabase } from "@/lib/supabase";
+import { addTeamToDB } from "@/lib/api/teams";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { name } = req.body();
+  const { name } = req.body;
+
   try {
-    const { data, error } = await supabase.from("Teams").insert([{ name }]);
-    if (error) {
-      throw error;
-    }
+    const data = addTeamToDB(name)
 
     return res.status(200).json(data);
   } catch (error) {
