@@ -8,7 +8,7 @@ export default async function handler(
   const { name } = req.body;
 
   try {
-    const data = addTeamToDB(name)
+    const data = addTeamToDB(name);
 
     return res.status(200).json(data);
   } catch (error) {

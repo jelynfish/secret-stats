@@ -1,34 +1,34 @@
 export interface MatchType {
-    metadata: MatchMetadataType
-    players: MatchPlayerType[]
-    teams: MatchTeamType[]
+  metadata: MatchMetadataType;
+  players: MatchPlayerType[];
+  teams: MatchTeamType[];
 }
 
 export interface MatchMetadataType {
-  match_id: string
-  map: MapType
-  started_at: string
-  game_length_in_ms: Number,
-  queue: QueueType
-  season: SeasonIDType
-  platform: PlatformType
-  premier: boolean | null
-  party_rr_penalties: PartyType[]
-  region: string
+  match_id: string;
+  map: MapType;
+  started_at: string;
+  game_length_in_ms: Number;
+  queue: QueueType;
+  season: SeasonIDType;
+  platform: PlatformType;
+  premier: boolean | null;
+  party_rr_penalties: PartyType[];
+  region: string;
 }
 
 export interface PlayerType {
-    puuid: string
-    name: string
-    tag: string
-    platform: string
+  puuid: string;
+  name: string;
+  tag: string;
+  platform: string;
 }
 
 export interface MatchPlayerType extends PlayerType {
-    team_id: string
-    agent: AgentType
-    party_id: string
-    stats: MatchStatsType
+  team_id: string;
+  agent: AgentType;
+  party_id: string;
+  stats: MatchStatsType;
 }
 
 export interface PartyType {
@@ -45,7 +45,7 @@ export interface QueueType {
 }
 
 export interface SeasonIDType {
-    short: SeasonType
+  short: SeasonType;
 }
 
 export enum SeasonType {
@@ -82,37 +82,37 @@ export enum SeasonType {
 }
 
 export enum PlatformType {
-    pc = "PC",
-    console = "Console"
+  pc = "PC",
+  console = "Console",
 }
 
 export interface AgentType {
-    name: string
+  name: string;
 }
 
 export interface MatchStatsType {
-    score: number
-    kills: number
-    deaths: number
-    assists: number
-    headshots: number
-    legshots: number
-    bodyshots: number
-    damage: DamageDealtRecievedType
+  score: number;
+  kills: number;
+  deaths: number;
+  assists: number;
+  headshots: number;
+  legshots: number;
+  bodyshots: number;
+  damage: DamageDealtRecievedType;
 }
 
 export interface DamageDealtRecievedType {
-    dealt: number
-    recieved: number
+  dealt: number;
+  recieved: number;
 }
 
 export interface MatchTeamType {
-    team_id: string
-    rounds: BasicRoundType
-    won: boolean
+  team_id: string;
+  rounds: BasicRoundType;
+  won: boolean;
 }
 
 export interface BasicRoundType {
-    won: number
-    lost: number
+  won: number;
+  lost: number;
 }

@@ -8,7 +8,7 @@ export default async function handler(
   const { puuid, name, tag, region } = req.body;
 
   try {
-    const data = await addPlayerToDB(puuid, name, tag, region)
+    const data = await addPlayerToDB(puuid, name, tag, region);
 
     return res.status(200).json(data);
   } catch (error) {
