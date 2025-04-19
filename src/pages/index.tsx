@@ -1,4 +1,4 @@
-import { AddableMatchCard } from "@/components/add-data/AddableMatchCard";
+import AddableMatchList from "@/components/add-data/AddableMatchList";
 import { MatchType } from "@/components/types";
 import React, { useState } from "react";
 
@@ -6,41 +6,41 @@ export default function Home() {
   const [name, setName] = useState("");
   const [tag, setTag] = useState("");
 
-  const [response, setResponse] = useState<any>(null);
+  const [matches, setMatches] = useState<MatchType[]>();
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmitPlayer(e: React.FormEvent) {
-    e.preventDefault();
+  // async function handleSubmitPlayer(e: React.FormEvent) {
+  //   e.preventDefault();
 
-    try {
-      const queryParams = new URLSearchParams({ name, tag }).toString();
-      const get = await fetch(`/api/ext/getPlayer?${queryParams}`);
+  //   try {
+  //     const queryParams = new URLSearchParams({ name, tag }).toString();
+  //     const get = await fetch(`/api/ext/getPlayer?${queryParams}`);
 
-      if (!get.ok) {
-        throw new Error("Failed to fetch player data");
-      }
+  //     if (!get.ok) {
+  //       throw new Error("Failed to fetch player data");
+  //     }
 
-      const playerData = await get.json();
-      console.log(playerData);
+  //     const playerData = await get.json();
+  //     console.log(playerData);
 
-      const add = await fetch("/api/db/addPlayer", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(playerData),
-      });
+  //     const add = await fetch("/api/db/addPlayer", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(playerData),
+  //     });
 
-      if (!add.ok) {
-        throw new Error("Failed to add player to database.");
-      }
+  //     if (!add.ok) {
+  //       throw new Error("Failed to add player to database.");
+  //     }
 
-      const dbres = await add.json();
-      setResponse(dbres);
-    } catch (err) {
-      setError((err as Error).message);
-    }
-  }
+  //     const dbres = await add.json();
+  //     setResponse(dbres);
+  //   } catch (err) {
+  //     setError((err as Error).message);
+  //   }
+  // }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -59,7 +59,7 @@ export default function Home() {
       }
 
       const matches: MatchType[] = await res.json();
-      setResponse(matches);
+      setMatches(matches);
     } catch (err) {
       setError((err as Error).message);
     }
@@ -86,18 +86,7 @@ export default function Home() {
         <button type="submit">Search</button>
       </form>
 
-      {response && (
-        <div>
-          <h2>Matches Found:</h2>
-          {response.map((match: MatchType) => (
-            <AddableMatchCard
-              puuids={["9ccb6834-44aa-599f-be27-ba3219ab17b6"]}
-              match={match}
-              added={false}
-            />
-          ))}
-        </div>
-      )}
+      {matches && <AddableMatchList matches={matches} />}
     </div>
   );
 }

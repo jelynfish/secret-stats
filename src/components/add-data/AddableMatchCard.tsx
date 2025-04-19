@@ -5,12 +5,32 @@ import { getTeamDataFromMatch } from "../utils/getMyTeamFromMatch";
 
 interface Props {
   puuids: string[];
+  selectedMatches: string[];
+  addMatchToSelectedMatches: (match_id: string) => void;
+  removeMatchFromSelectedMatches: (match_id: string) => void;
   match: MatchType;
-  added: boolean;
 }
 
-export const AddableMatchCard = ({ puuids, match, added = false }: Props) => {
+export const AddableMatchCard = ({
+  puuids,
+  selectedMatches,
+  addMatchToSelectedMatches,
+  removeMatchFromSelectedMatches,
+  match,
+}: Props) => {
+  const added = selectedMatches.some(
+    (m_id) => m_id === match.metadata.match_id
+  );
+
   const team_data = getTeamDataFromMatch(puuids, match.players, match.teams);
+
+  const addMatch = () => {
+    addMatchToSelectedMatches(match.metadata.match_id);
+  };
+
+  const removeMatch = () => {
+    removeMatchFromSelectedMatches(match.metadata.match_id);
+  };
 
   if (team_data === null) {
     return <div>Match failed to properly load</div>;
@@ -23,7 +43,11 @@ export const AddableMatchCard = ({ puuids, match, added = false }: Props) => {
           {team_data.rounds.won} : {team_data.rounds.lost}
         </div>
       </div>
-      <Button variant={added ? "default" : "outline"} size="icon">
+      <Button
+        onClick={added ? removeMatch : addMatch}
+        variant={added ? "default" : "outline"}
+        size="icon"
+      >
         {added ? <Minus /> : <Plus />}
       </Button>
     </div>
