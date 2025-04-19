@@ -5,7 +5,7 @@ export async function getMatchesByPlayerFromAPI(
   region: string,
   puuid: string,
   mode: string = "competitive",
-  size: string = "10",
+  size: string = "5",
   start: string = "0"
 ) {
   const response = await fetch(

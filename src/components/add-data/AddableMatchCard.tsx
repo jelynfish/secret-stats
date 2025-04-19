@@ -36,7 +36,7 @@ export const AddableMatchCard = ({
     return <div>Match failed to properly load</div>;
   }
   return (
-    <div className="flex p-2 space-x-2 items-center">
+    <div className="flex py-2 px-4 space-x-2 items-center outline rounded-md justify-between">
       <div>
         <h3>{team_data.won ? "Won" : "Lost"}</h3>
         <div>

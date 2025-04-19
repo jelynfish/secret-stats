@@ -1,4 +1,5 @@
 import { MatchType } from "../types";
+import { Button } from "../ui/button";
 import { AddableMatchCard } from "./AddableMatchCard";
 import { without } from "lodash";
 import { useState } from "react";
@@ -20,17 +21,23 @@ const AddableMatchList = ({ matches }: Props) => {
   };
 
   return (
-    <div>
+    <div className="p-4 w-full space-y-4">
       <h2>Matches Found:</h2>
-      {matches.map((match: MatchType) => (
-        <AddableMatchCard
-          puuids={["9ccb6834-44aa-599f-be27-ba3219ab17b6"]}
-          selectedMatches={selectedMatches}
-          match={match}
-          addMatchToSelectedMatches={addMatchToSelectedMatches}
-          removeMatchFromSelectedMatches={removeMatchFromSelectedMatches}
-        />
-      ))}
+      <div className="space-y-2">
+        {matches.map((match: MatchType) => (
+          <AddableMatchCard
+            puuids={["9ccb6834-44aa-599f-be27-ba3219ab17b6"]}
+            selectedMatches={selectedMatches}
+            match={match}
+            addMatchToSelectedMatches={addMatchToSelectedMatches}
+            removeMatchFromSelectedMatches={removeMatchFromSelectedMatches}
+            key={match.metadata.match_id}
+          />
+        ))}
+      </div>
+      <div className="flex mt-4 justify-end">
+        <Button size="lg">Add</Button>
+      </div>
     </div>
   );
 };
