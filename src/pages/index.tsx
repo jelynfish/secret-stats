@@ -1,4 +1,4 @@
-import { MatchCard } from "@/components/MatchCard";
+import { AddableMatchCard } from "@/components/add-data/AddableMatchCard";
 import { MatchType } from "@/components/types";
 import React, { useState } from "react";
 
@@ -90,9 +90,10 @@ export default function Home() {
         <div>
           <h2>Matches Found:</h2>
           {response.map((match: MatchType) => (
-            <MatchCard
+            <AddableMatchCard
               puuids={["9ccb6834-44aa-599f-be27-ba3219ab17b6"]}
               match={match}
+              added={false}
             />
           ))}
         </div>
